@@ -8,24 +8,23 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("lbg-mea-leaders-c9-peterTest.json")
+  credentials = file("exec-prep-d984b2d1851c.json")
 
-  project = "provider "google"
-{
+  project = "exec-prep"
   region  = "europe-west1"
   zone    = "europe-west1-c"
 }
 
-resource "google_compute_network" "lbg_exec_cohort9_vpc_network" {
-  name = "lbg-cohort9-targets-network"
+resource "google_compute_network" "lbg_exec_cohort1_vpc_network" {
+  name = "lbg-cohort1-targets-network"
   auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "default" {
-  name          = "cohort9-custom-subnet"  
+  name          = "cohort1-custom-subnet"  
   ip_cidr_range = "10.0.1.0/24"
   region        = "europe-west1"  
-  network       = google_compute_network.lbg_exec_cohort9_vpc_network.id
+  network       = google_compute_network.lbg_exec_cohort1_vpc_network.id
 }
 
 resource "google_compute_instance" "executive_vm" {
@@ -34,7 +33,7 @@ resource "google_compute_instance" "executive_vm" {
   name         = "executive-${count.index + 1}"
   machine_type = "e2-medium"
   zone         = "europe-west1-c"
-  tags         = ["cohort9"]
+  tags         = ["cohort1"]
 
 
   boot_disk {
@@ -53,21 +52,21 @@ metadata_startup_script ="sudo apt-get update && sudo apt-get upgrade -y; sudo a
     }
   }
 }
-resource "google_compute_firewall" "cohort9-ssh" {
+resource "google_compute_firewall" "cohort1-ssh" {
 name = "allow-ssh"
   allow {
     ports    = ["22"]
     protocol = "tcp"
   }
   direction     = "INGRESS"
-  network       = google_compute_network.lbg_exec_cohort9_vpc_network.id
+  network       = google_compute_network.lbg_exec_cohort1_vpc_network.id
   priority      = 1000
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["cohort9"]
+  target_tags   = ["cohort1"]
 }
 resource "google_compute_firewall" "apache" {
   name    = "apache-firewall"
-  network = google_compute_network.lbg_exec_cohort9_vpc_network.id
+  network = google_compute_network.lbg_exec_cohort1_vpc_network.id
 
   allow {
     protocol = "tcp"
@@ -77,7 +76,7 @@ resource "google_compute_firewall" "apache" {
 }
 resource "google_compute_firewall" "mysql" {
   name    = "mysql-firewall"
-  network = google_compute_network.lbg_exec_cohort9_vpc_network.id
+  network = google_compute_network.lbg_exec_cohort1_vpc_network.id
 
   allow {
     protocol = "tcp"
@@ -87,7 +86,7 @@ resource "google_compute_firewall" "mysql" {
 }
 resource "google_compute_firewall" "java-spring" {
   name    = "java-spring-firewall"
-  network = google_compute_network.lbg_exec_cohort9_vpc_network.id
+  network = google_compute_network.lbg_exec_cohort1_vpc_network.id
 
   allow {
     protocol = "tcp"
@@ -97,7 +96,7 @@ resource "google_compute_firewall" "java-spring" {
 }
 resource "google_compute_firewall" "cars-react" {
   name    = "cars-react-firewall"
-  network = google_compute_network.lbg_exec_cohort9_vpc_network.id
+  network = google_compute_network.lbg_exec_cohort1_vpc_network.id
 
   allow {
     protocol = "tcp"
@@ -107,7 +106,7 @@ resource "google_compute_firewall" "cars-react" {
 }
 resource "google_compute_firewall" "vat-react" {
   name    = "vat-react-firewall"
-  network = google_compute_network.lbg_exec_cohort9_vpc_network.id
+  network = google_compute_network.lbg_exec_cohort1_vpc_network.id
 
   allow {
     protocol = "tcp"
