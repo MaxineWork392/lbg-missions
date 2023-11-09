@@ -15,13 +15,13 @@ provider "google" {
   zone    = "europe-west1-c"
 }
 
-resource "google_compute_network" "lbg_exec_cohort1_vpc_network" {
-  name = "lbg-cohort1-targets-network"
+resource "google_compute_network" "lbg_exec_cohort9_vpc_network" {
+  name = "lbg-cohort9-targets-network"
   auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "default" {
-  name          = "cohort1-custom-subnet"  
+  name          = "cohort9-custom-subnet"  
   ip_cidr_range = "10.0.1.0/24"
   region        = "europe-west1"  
   network       = google_compute_network.lbg_exec_cohort1_vpc_network.id
@@ -59,14 +59,14 @@ name = "allow-ssh"
     protocol = "tcp"
   }
   direction     = "INGRESS"
-  network       = google_compute_network.lbg_exec_cohort1_vpc_network.id
+  network       = google_compute_network.lbg_exec_cohort9_vpc_network.id
   priority      = 1000
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["cohort1"]
+  target_tags   = ["cohort9"]
 }
 resource "google_compute_firewall" "apache" {
   name    = "apache-firewall"
-  network = google_compute_network.lbg_exec_cohort1_vpc_network.id
+  network = google_compute_network.lbg_exec_cohort9_vpc_network.id
 
   allow {
     protocol = "tcp"
