@@ -10,7 +10,8 @@ terraform {
 provider "google" {
   credentials = file("lbg-mea-leaders-c9-peterTest.json")
 
-  project = "provider "google" {"
+  project = "provider "google"
+{
   region  = "europe-west1"
   zone    = "europe-west1-c"
 }
