@@ -1,0 +1,4 @@
+on jenkins machine 
+cd /var/lib/jenkins/workspace/hello-maven-job/target/
+
+java -cp hello-world-maven-1.0-SNAPSHOT.jar com.qa.App
