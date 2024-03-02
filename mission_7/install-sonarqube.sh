@@ -24,3 +24,5 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable sonar
 sudo systemctl restart sonar
+
+echo "setup complete!"
