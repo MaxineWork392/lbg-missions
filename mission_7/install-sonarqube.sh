@@ -2,7 +2,8 @@
 
 echo "updating and installing dependencies"
 sudo apt update
-sudo apt install -y openjdk-11-jre wget git zip unzip > /dev/null
+#sudo apt install -y openjdk-11-jre wget git zip unzip > /dev/null
+sudo apt install openjdk-17-jre wget git zip unzip > /dev/null
 echo "configuring sonar user"
 sudo useradd -m -s /bin/bash sonar
 echo "downloading stable sonar zip"
