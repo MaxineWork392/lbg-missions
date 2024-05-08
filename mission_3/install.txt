@@ -1,4 +1,4 @@
-udo apt update && sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 
 #sudo apt install -y openjdk-11-jre
 sudo apt install openjdk-17-jre openjdk-17-jdk
